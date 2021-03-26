@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping(value = "/api/papers")
 @RestController
@@ -30,7 +31,6 @@ public class PastPaperController {
 
     @PostMapping
     public  ResponseEntity<?> insertPastPapers(@RequestBody Pastpaper paper){
-
         try{
             paper.setCreatedAt(new Date(System.currentTimeMillis()));
             pastPapersRepo.save(paper);
@@ -38,7 +38,17 @@ public class PastPaperController {
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
         }
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getSinglePaper(@PathVariable("id") String id){
+       Optional<Pastpaper> paperOptional =  pastPapersRepo.findById(id);
+
+       if(paperOptional.isPresent()){
+           return new ResponseEntity<>(paperOptional.get(),HttpStatus.OK);
+       }else{
+           return new ResponseEntity<>("Paper not found",HttpStatus.NOT_FOUND);
+       }
 
     }
 
