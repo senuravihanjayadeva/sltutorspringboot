@@ -31,6 +31,8 @@ public class Pastpaper {
 
     private String paperLink;
 
+    private String image;
+
     private Date createdAt;
 
     private Date updatedAt;
