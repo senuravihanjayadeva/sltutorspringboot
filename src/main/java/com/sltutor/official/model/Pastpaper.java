@@ -29,6 +29,8 @@ public class Pastpaper {
 
     private String medium;
 
+    private String paperLink;
+
     private Date createdAt;
 
     private Date updatedAt;
